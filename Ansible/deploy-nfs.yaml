@@ -1,0 +1,9 @@
+---
+
+- name: deploy nfs
+  hosts: rhnfs
+  vars_files:
+    - "group_vars/nfs.yaml"
+  gather_facts: true
+  roles:
+    - nfs

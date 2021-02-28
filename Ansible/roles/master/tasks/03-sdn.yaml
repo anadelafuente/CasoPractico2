@@ -1,0 +1,27 @@
+---
+
+# Como SDN vamos a instalar Calico.
+#Instalamos el operador de Tigera:
+- name: SDN
+  command: "kubectl create -f https://docs.projectcalico.org/manifests/tigera-operator.yaml"
+  become: yes
+
+#fichero  definición Calico
+- name: Download file from a file path
+  get_url:
+    url: https://docs.projectcalico.org/manifests/custom-resources.yaml
+    dest: /tmp/
+
+- name: Replace cidr entry with POD IP
+  lineinfile:
+    path: /tmp/custom-resources.yaml
+    regexp: '^cidr:(.*)'
+    line: 'cidr: 10.1.1.0/16'
+    owner: root
+    group: root
+    mode: '0644'
+
+#Instalamos Calico:
+- name: Calico installing
+  command: "kubectl apply -f custom-resources.yaml"
+  become: yes

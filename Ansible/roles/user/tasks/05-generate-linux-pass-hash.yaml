@@ -1,0 +1,19 @@
+---
+
+    # generamos un valor aleatorio para usarlo como salt y lo guardamos en una variable
+    - name: generamos un valor aleatorio como salt para generar la contraseña
+      command: /usr/bin/openssl rand -base64 32
+      register: random_pass
+
+    - name: creamos el hash (sha512)
+      command: "/usr/bin/openssl passwd -6 -salt {{ random_pass.stdout }} {{ password }}"
+      register: password_sha512
+
+    - name: debug
+      debug: msg="El hash del password introducido es {{ password_sha512.stdout }}"
+
+    #Creamos un usuario no administrador para la gestión del clúster:
+    - name: Add the user
+      user:
+        name: kubeadmin
+        password: password_sha512
