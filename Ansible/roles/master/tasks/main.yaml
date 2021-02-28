@@ -1,0 +1,8 @@
+---
+
+- include_tasks: 01-firewall-images.yaml
+- include_tasks: 02-cni.yaml
+- include_tasks: 03-sdn.yaml
+- include_tasks: 04-ingresscontroler.yaml
+- include_tasks: 05-generate-linux-pass-hash.yaml
+- include_tasks: 05-user.yaml

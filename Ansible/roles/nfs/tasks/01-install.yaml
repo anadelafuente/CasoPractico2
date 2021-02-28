@@ -1,0 +1,7 @@
+---
+
+- name: install packages
+  dnf:
+    name: "{{ nfs_rpms }}"  # dnf install nfs-utils net-tools -y
+    state: present
+  become: yes
