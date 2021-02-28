@@ -1,0 +1,17 @@
+---
+
+# activar transparent masquerading para que los PODs puedan comunicarse dentro del cluster mediante VXLAN
+# modprobe br_netfilter
+- name: enable transparent masquerading 
+  command: "modprobe br_netfilter"
+  become: yes
+
+- name: firewall configuration for master and workers
+  firewalld:
+    service: "{{ item }}"
+    permanent: yes
+    state: enabled
+    immediate: yes
+  become: true
+  with_items:
+    - "masquerade"

@@ -1,0 +1,10 @@
+---
+
+- name: deploy common tasks Master and Workers
+  hosts: rhkubernetes
+  vars_files:
+    - "group_vars/docker.yaml"
+    - "group_vars/kubernetes.yaml"
+  gather_facts: true
+  roles:
+    - common-mastwork
