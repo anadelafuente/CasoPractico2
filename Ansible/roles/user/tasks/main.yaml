@@ -1,4 +1,0 @@
----
-
-- include_tasks: 05-generate-linux-pass-hash.yaml
-- include_tasks: 05-user.yaml

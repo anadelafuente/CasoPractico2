@@ -1,9 +1,0 @@
----
-
-- name: deploy common tasks
-  hosts: all
-  vars_files:
-    - "group_vars/commom.yaml"
-  gather_facts: true
-  roles:
-    - common

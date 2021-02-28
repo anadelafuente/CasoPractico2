@@ -1,8 +1,0 @@
----
-
-- name: deploy master
-  hosts: rhmaster
-  vars_files:
-  gather_facts: true
-  roles:
-    - master

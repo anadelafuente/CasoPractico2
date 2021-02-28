@@ -1,3 +1,0 @@
----
-
-common_rpms: ['chrony', 'nfs-utils', 'nfs4-acl-tools', 'wget']
