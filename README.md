@@ -1,20 +1,28 @@
 # Caso práctico 2
 Automatización de despliegues en entornos Cloud
 
-Objetivos de la actividad
+En este repositorio puedes encontrar el código terraform para desplegar una infraestructura de 4 servidores en Azure.
+También el código de Ansible para desplegar Kubernetes de forma automatizada en ellos con la  configuración necesaria.
 
-Esta actividad pretende conseguir que te familiarices con las tecnologías de automatización y Cloud. 
+Descripción de la actividad:
 
-Descripción de la actividad y pautas de elaboración
-
-Deberás desplegar un clúster de Kubernetes en Azure. No se puede utilizar AKS. El clúster constará de los siguientes elementos:
+Desplegado un clúster de Kubernetes en Azure. El clúster consta de los siguientes elementos:
 
 -	Un master node.
 -	Dos workers.
 
-Además se desplegará un nodo NFS para almacenamiento.
+Además se ha desplegado un nodo NFS para almacenamiento.
 
-Deberás desplegar una aplicación de tu elección. Podrás encontrar aplicaciones ya contenerizadas en:
+Role	Sistema Operativo	vCPUs	Memoria
+NFS	          CentOS 8	1 CPU	3.5 GB
+Máster	      CentOS 8	1 CPU	3.5 GB
+Worker01	    CentOS 8	1 CPU	3.5 GB
+Worker02	    CentOS 8	1 CPU	3.5 GB
 
--	dockerhub.
--	quay.
+Nombre	       IP	
+Master	  10.0.1.10	masternod.westeurope.cloudapp.azure.com
+NFS	      10.0.1.13	nfsnode.westeurope.cloudapp.azure.com
+Worker01	10.0.1.11	nodeworker01.westeurope.cloudapp.azure.com
+Worker02	10.0.1.12	nodeworker02.westeurope.cloudapp.azure.com
+
+Por último se ha desplegado una aplicación game 2048. Como imagen se ha utilizado la ya publicada en docker.io/alexwhen/docker-2048:latest sin modificar.
