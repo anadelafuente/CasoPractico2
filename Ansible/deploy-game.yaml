@@ -1,0 +1,8 @@
+---
+
+- name: deploy application
+  hosts: rhmaster-app
+  vars_files:
+  gather_facts: true
+  roles:
+    - game

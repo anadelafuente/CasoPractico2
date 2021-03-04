@@ -6,12 +6,22 @@
   file:
     path: /home/kubeadmin/.kube
     state: directory
-    mode: '0644'
+    mode: '0755'
+  become: yes
 
 - name: Auth user cluster access
-  command: "cp -i /etc/kubernetes/admin.conf /home/kubeadmin/.kube/config"
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/kubeadmin/.kube/config
+    owner: root
+    group: root
+    mode: '0755'
+    remote_src: yes
   become: yes
 
 - name: Auth user
-  command: "chown kubeadmin. /home/kubeadmin/.kube/config"
+  file:
+    path: /home/kubeadmin/.kube/config
+    owner: root
+    group: root
   become: yes

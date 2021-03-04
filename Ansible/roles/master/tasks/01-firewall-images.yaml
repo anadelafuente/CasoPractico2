@@ -59,15 +59,15 @@
   firewalld:
     rich_rule: rule family=ipv4 source address=10.0.1.11/16 accept
     permanent: yes
-    immediate: yes
     state: enabled
+  become: true
 
 - name: worker02
   firewalld:
     rich_rule: rule family=ipv4 source address=10.0.1.12/16 accept
     permanent: yes
-    immediate: yes
     state: enabled
+  become: true
 
 #Permitimos el acceso de los contenedores a localhost:
 - name: docker
@@ -75,5 +75,5 @@
     rich_rule: rule family=ipv4 source address=172.17.0.0/16 accept
     zone: public
     permanent: yes
-    immediate: yes
     state: enabled
+  become: true

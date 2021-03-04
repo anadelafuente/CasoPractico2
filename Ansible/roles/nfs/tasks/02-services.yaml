@@ -22,14 +22,14 @@
       - "exports"
 
 # exportfs -r
-- name: enable repository
-  command: "/etc/exports exportfs -r"
-  become: yes
-  become_method : sudo
+#- name: enable repository
+#  command: "/etc/exports exportfs -r"
+#  become: yes
+#  become_method : sudo
 
 
 # exportfs -s
-- name: exec repository
-  command: "/etc/exports exportfs -s"
-  become: yes
-  become_method : sudo
+#- name: exec repository
+#  command: "/etc/exports exportfs -s"
+#  become: yes
+#  become_method : sudo

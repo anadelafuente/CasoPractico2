@@ -5,16 +5,23 @@
   command: "kubeadm init --pod-network-cidr 10.1.1.0/16"
   become: yes
   register: kubeadm
-- debug: msg="{{kubeadm.stdout}}"
 
 #Guardar variable en un fichero para después leerlo
 - name: copy files
   copy:
-    content: 'kubeadm.stdout'
-    dest: "{{ kubeadm }}"
+    content: "{{ kubeadm.stdout }}"
+    dest: /home/ansible/kubeadm.txt
   become: yes
-  with_items:
-      - "kubeadm"
+
+- name: Reading token
+  shell: "cat /home/ansible/kubeadm.txt | tail -2"
+  register: n2kubeadm
+
+- name: copy token from master to workers
+  add_host:
+    PLAY1VAR: "{{ n2kubeadm.stdout }}"
+    name: "kubeadm_host"
+  become: yes
 
 #autorizar al usuario root acceder al cluster
 - name: Create a directory if it does not exist
@@ -22,11 +29,22 @@
     path: /root/.kube
     state: directory
     mode: '0644'
+  become: yes
 
 - name: Auth user cluster access
-  command: "cp -i /etc/kubernetes/admin.conf /root/.kube/config"
+  copy:
+    src: "/etc/kubernetes/admin.conf"
+    dest: "/root/.kube/config"
+    owner: root
+    group: root
+    mode: '0644'
+    remote_src: yes
   become: yes
 
 - name: Auth user
-  command: "chown $(id -u):$(id -g) /root/.kube/config"
+  file:
+    path: /root/.kube/config
+    owner: root
+    group: root
+    mode: '0644'
   become: yes

@@ -1,0 +1,34 @@
+---
+  
+- name: delete namespace
+  command: "kubectl delete namespace webapp-volumes"
+  become: yes
+
+- name: create namespace
+  command: "kubectl create namespace webapp-volumes"
+  become: yes
+
+- name: copy files
+  copy:
+    src: "{{ item }}"
+    dest: "/tmp/{{ item }}"
+    owner: root
+    group:  root
+    mode: '0644'
+  become: yes
+  with_items:
+      - "nfs-pv.yaml"
+      - "nfs-pvc.yaml"
+      - "app-volumes.yaml"
+
+- name: persistent volume
+  command: "kubectl apply -f /tmp/nfs-pv.yaml"
+  become: yes
+
+- name: claim
+  command: "kubectl apply -f /tmp/nfs-pvc.yaml"
+  become: yes
+
+- name: app deployment
+  command: "kubectl apply -f /tmp/app-volumes.yaml"
+  become: yes

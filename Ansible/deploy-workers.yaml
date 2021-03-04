@@ -3,7 +3,6 @@
 - name: deploy workers
   hosts: rhworkers
   vars_files:
-    - "group_vars/nfs.yaml"
   gather_facts: true
   roles:
     - workers

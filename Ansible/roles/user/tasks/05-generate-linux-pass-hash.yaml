@@ -9,11 +9,11 @@
       command: "/usr/bin/openssl passwd -6 -salt {{ random_pass.stdout }} {{ password }}"
       register: password_sha512
 
-    - name: debug
-      debug: msg="El hash del password introducido es {{ password_sha512.stdout }}"
-
     #Creamos un usuario no administrador para la gestión del clúster:
     - name: Add the user
       user:
         name: kubeadmin
-        password: password_sha512
+        password: "{{ password_sha512.stdout }}"
+      become: yes
+
+

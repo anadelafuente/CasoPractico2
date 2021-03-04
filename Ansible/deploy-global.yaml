@@ -1,0 +1,8 @@
+---
+
+- import_playbook: deploy-common.yaml
+- import_playbook: deploy-nfs.yaml
+- import_playbook: deploy-common-mastwork.yaml
+- import_playbook: deploy-master.yaml
+- import_playbook: deploy-workers.yaml
+- import_playbook: generate-linux-pass-hash.yaml

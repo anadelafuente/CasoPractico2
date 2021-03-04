@@ -1,20 +1,36 @@
 ---
 
 # Configuramos el firewall para acceder a los servicios de kubernetes:
-- name: firewall configuration1 for master
+- name: firewall configuration1 for workers
   firewalld:
-    port: {10250,30000-32767}/tcp
+    port: 10250/tcp
     zone: public
     permanent: yes
     state: enabled
     immediate: yes
   become: true
 
-- name: firewall-cmd --reload 
-  command: "firewall-cmd --reload"
+- name: firewall configuration2 for workers
+  firewalld:
+    port: 30000-32767/tcp
+    zone: public
+    permanent: yes
+    state: enabled
+    immediate: yes
+  become: true
+
+# Ejecutar en los nodos el comando de kubeadm que nos produjo la ejecución de kubadmin init
+# Copiarlo en los workers
+- name: copy files
+  copy:
+    content: "{{ hostvars['kubeadm_host']['PLAY1VAR'] }}"
+    dest: /home/ansible/kubeadm.sh
   become: yes
 
-# Configuramos kudeadm descargando imágenes
-- name: kubeadm images download
-  command: "kubeadm config images pull"
+- name: kubeadm reset
+  command: "kubeadm reset -f"
+  become: yes
+
+- name: kubeadm execution
+  command: "sh /home/ansible/kubeadm.sh"
   become: yes

@@ -12,6 +12,14 @@
     - "rpc-bind"
     - "mountd"
 
+- name: firewall configuration puerto  80
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+  become: true
+
 - name: firewall-cmd --reload 
   command: "firewall-cmd --reload"
   become: yes

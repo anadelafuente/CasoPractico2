@@ -16,3 +16,7 @@ ansible_sudo_pass=Londres2017!
 
 [rhnfs]
 10.0.1.13
+
+[rhmaster-app]
+10.0.1.10
+

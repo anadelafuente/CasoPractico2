@@ -1,0 +1,4 @@
+---
+
+- import_playbook: deploy-master.yaml
+- import_playbook: deploy-workers.yaml
